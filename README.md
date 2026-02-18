@@ -4,6 +4,8 @@
 
 **Ramazan ve Namaz Takip Arkadaşınız**
 
+🚀 **Canlı Demo:** [rayyan-five.vercel.app](https://rayyan-five.vercel.app)
+
 </div>
 
 ## 🇹🇷 Türkçe
@@ -42,6 +44,8 @@ Son sürümü `releases/` klasöründen indirebilirsiniz.
 ---
 
 ## 🇬🇧 English
+
+🚀 **Live Demo:** [rayyan-five.vercel.app](https://rayyan-five.vercel.app)
 
 **Rayyan** is a modern, privacy-focused companion for Ramadan and daily prayer tracking. Built with a minimalist philosophy, it cuts through the clutter of traditional apps to deliver exactly what you need.
 
