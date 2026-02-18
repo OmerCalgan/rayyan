@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Rayyan</string>
+    <string name="title_activity_main">Rayyan</string>
+    <string name="package_name">com.solacescans.ramadan</string>
+    <string name="custom_url_scheme">com.solacescans.ramadan</string>
+</resources>

@@ -1,0 +1,25 @@
+{
+  "name": "Rayyan",
+  "short_name": "Rayyan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E3A8A",
+  "theme_color": "#1E3A8A",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/emoji/96/crescent-moon-emoji.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/192/crescent-moon-emoji.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/512/crescent-moon-emoji.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

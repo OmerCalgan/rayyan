@@ -1,26 +1,270 @@
 @import "tailwindcss";
 
+/* ============================================
+   DIVINE THEMES ENGINE - CSS VARIABLES
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default: Kadir Gecesi (Deep Emerald) */
+  --bg-primary: #064e3b;
+  --bg-secondary: #0d9488;
+  --bg-gradient-from: #022c22;
+  --bg-gradient-to: #115e59;
+  --bg-body: #0c4a3e;
+  --accent-primary: #fbbf24; /* Amber 400 */
+  --accent-secondary: #f59e0b;
+  --text-primary: #ffffff;
+  --text-secondary: #a7f3d0;
+  --text-muted: #6ee7b7;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Medine Sabahı - Cream/Rose Light Theme */
+[data-theme="medine"] {
+  --bg-primary: #fff7ed; /* Orange 50 */
+  --bg-secondary: #ffe4e6; /* Rose 100 */
+  --bg-gradient-from: #fff1f2;
+  --bg-gradient-to: #fff7ed;
+  --bg-body: #fff7ed;
+  --accent-primary: #e11d48; /* Rose 600 */
+  --accent-secondary: #f59e0b; /* Amber 500 */
+  --text-primary: #881337; /* Rose 900 */
+  --text-secondary: #be123c; /* Rose 700 */
+  --text-muted: #fb7185; /* Rose 400 */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(225, 29, 72, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --shadow-color: rgba(136, 19, 55, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Kabe Örtüsü - Midnight Black/Gold */
+[data-theme="kabe"] {
+  --bg-primary: #000000;
+  --bg-secondary: #171717;
+  --bg-gradient-from: #000000;
+  --bg-gradient-to: #262626;
+  --bg-body: #000000;
+  --accent-primary: #fbbf24; /* Amber 400 */
+  --accent-secondary: #f59e0b;
+  --text-primary: #ffffff;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(251, 191, 36, 0.3);
+  --card-bg: rgba(23, 23, 23, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Hicret Yolu - Deep Desert Canyon at Dusk (Night Migration) */
+[data-theme="hicret"] {
+  /* Deep Terracotta Canyon Base */
+  --bg-primary: #431407; /* Warm, deep brown-orange (burnt sienna depth) */
+  --bg-secondary: #7c2d12; /* Terracotta rust */
+  
+  /* Gradient Definition: Desert Night Sky to Canyon Floor */
+  --bg-gradient-from: #290e05; /* Deep, dark umber (twilight sky) */
+  --bg-gradient-to: #9a3412; /* Rich rust/mars orange (horizon glow) */
+  --bg-body: #431407;
+  
+  /* Accents: Desaturated Sunset Gold (the last light on the horizon) */
+  --accent-primary: #fdba74; /* Warm muted orange-300 (sunset remnant) */
+  --accent-secondary: #fb923c; /* Slightly deeper orange-400 */
+  
+  /* Text: Pale Sand against Dark Earth */
+  --text-primary: #ffedd5; /* Orange-50 (bright sand) - high contrast on dark bg */
+  --text-secondary: #fed7aa; /* Orange-200 (warm light) */
+  --text-muted: #fdba74; /* Orange-300 (muted, still readable) */
+  
+  /* Glass Effects: Warm tinted transparency */
+  --glass-bg: rgba(251, 146, 60, 0.08); /* Orange-tinted glass */
+  --glass-border: rgba(251, 146, 60, 0.25); /* Warm borders */
+  --card-bg: rgba(124, 45, 18, 0.4); /* Deep terracotta card backing */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-body);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(251, 191, 36, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safe area support for notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Custom scrollbar - minimal for mobile feel */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  opacity: 0.3;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Remove default button styles on mobile */
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   DIVINE MOTIFS ANIMATIONS
+   ============================================ */
+
+/* Lantern swing animation */
+@keyframes swing {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.animate-swing {
+  animation: swing 4s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Star twinkle animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-swing,
+  .animate-twinkle,
+  .animate-spin {
+    animation: none;
+  }
+}
+
+/* Golden glow effect for countdown */
+.golden-glow {
+  filter: drop-shadow(0 2px 10px rgba(251, 191, 36, 0.3));
+}
+
+/* Glassmorphism utilities */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Active state for tactile feedback */
+.active-scale {
+  transition: transform 0.15s ease;
+}
+
+.active-scale:active {
+  transform: scale(0.95);
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Smooth transitions */
+.transition-all-smooth {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Theme transition for smooth color changes */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header gradient using theme variables */
+.header-gradient {
+  background: linear-gradient(to bottom, var(--bg-gradient-from), var(--bg-secondary), var(--bg-primary));
+}
+
+/* Card shadow using theme variable */
+.card-shadow {
+  box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
 }
