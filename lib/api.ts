@@ -79,7 +79,7 @@ export async function fetchPrayerTimes(
   lng: number
 ): Promise<{ times: PrayerTimes; hijriDate: string; gregorianDate: string; timezone: string }> {
   const response = await axios.get<PrayerTimesResponse>(
-    `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=13`
+    `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=13&tune=2,2,0,0,0,0,0,0,0`
   );
 
   const { data } = response.data;

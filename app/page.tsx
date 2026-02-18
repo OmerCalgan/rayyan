@@ -178,11 +178,13 @@ export default function Home() {
   const prayerTimeItems = useMemo(() => {
     if (!prayerTimes) return [];
     return [
+      // İmsak is the canonical fasting start time (replaces Fajr for fasting purposes)
       { key: 'imsak', name: language === 'tr' ? 'İmsak' : 'Imsak', time: prayerTimes.imsak, icon: Moon, label: t.prayerLabels.sahurEnds },
-      { key: 'fajr', name: t.prayerNames.fajr, time: prayerTimes.fajr, icon: Moon, label: language === 'tr' ? 'Fajr vakti' : 'Fajr time' },
-      { key: 'sunrise', name: t.prayerNames.sunrise, time: prayerTimes.sunrise, icon: Sun, label: t.prayerLabels.fastBegins },
+      // Sunrise - purely informational, no fasting references
+      { key: 'sunrise', name: t.prayerNames.sunrise, time: prayerTimes.sunrise, icon: Sun, label: t.prayerLabels.sunriseOnly },
       { key: 'dhuhr', name: t.prayerNames.dhuhr, time: prayerTimes.dhuhr, icon: Sun, label: t.prayerLabels.noonPrayer },
       { key: 'asr', name: t.prayerNames.asr, time: prayerTimes.asr, icon: Sun, label: t.prayerLabels.afternoonPrayer },
+      // Maghrib is Iftar time
       { key: 'maghrib', name: t.prayerNames.maghrib, time: prayerTimes.maghrib, icon: Moon, label: t.prayerLabels.iftarTime },
       { key: 'isha', name: t.prayerNames.isha, time: prayerTimes.isha, icon: Moon, label: t.prayerLabels.nightPrayer },
     ];

@@ -18,7 +18,7 @@ export interface Translations {
   };
   prayerLabels: {
     sahurEnds: string;
-    fastBegins: string;
+    sunriseOnly: string;
     noonPrayer: string;
     afternoonPrayer: string;
     iftarTime: string;
@@ -79,11 +79,11 @@ export const translations: Record<Language, Translations> = {
       isha: 'Isha',
     },
     prayerLabels: {
-      sahurEnds: 'Sahur ends (Imsak)',
-      fastBegins: 'Fast begins (Imsak)',
+      sahurEnds: 'Fasting Starts / Sahur Ends',
+      sunriseOnly: 'Sunrise',
       noonPrayer: 'Noon prayer',
       afternoonPrayer: 'Afternoon prayer',
-      iftarTime: 'Iftar time',
+      iftarTime: 'Iftar Time',
       nightPrayer: 'Night prayer',
     },
     dailyPrayerTimes: 'Daily Prayer Times',
@@ -139,11 +139,11 @@ export const translations: Record<Language, Translations> = {
       isha: 'Yatsı',
     },
     prayerLabels: {
-      sahurEnds: 'İmsak vakti (Sahur bitiş)',
-      fastBegins: 'Oruç başlar (İmsak)',
+      sahurEnds: 'Oruç Başlangıcı / Sahur Bitiş',
+      sunriseOnly: 'Güneş',
       noonPrayer: 'Öğle namazı',
       afternoonPrayer: 'İkindi namazı',
-      iftarTime: 'İftar vakti',
+      iftarTime: 'İftar Vakti',
       nightPrayer: 'Yatsı namazı',
     },
     dailyPrayerTimes: 'Günlük Namaz Vakitleri',
