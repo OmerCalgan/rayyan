@@ -40,22 +40,21 @@ function determineCountdownTarget(
   now: Date,
   t: typeof translations['en']
 ): CountdownTarget {
-  const imsakTime = parseTimeToDate(times.imsak, now);
   const fajrTime = parseTimeToDate(times.fajr, now);
   const maghribTime = parseTimeToDate(times.maghrib, now);
-  const nextImsakTime = parseTimeToDate(times.imsak, getNextDay(now));
+  const nextFajrTime = parseTimeToDate(times.fajr, getNextDay(now));
 
-  // Sahur ends at Imsak (start of fasting), not Sunrise
-  if (now < imsakTime) {
+  // Sahur ends at Fajr (Imsak - start of fasting)
+  if (now < fajrTime) {
     return {
-      time: imsakTime,
+      time: fajrTime,
       label: t.countdown.sahurEnds,
       type: 'sahur',
-      timeLabel: `${t.countdown.sahurEndsAt} ${times.imsak}`,
+      timeLabel: `${t.countdown.sahurEndsAt} ${times.fajr}`,
     };
   }
 
-  if (now >= imsakTime && now < maghribTime) {
+  if (now >= fajrTime && now < maghribTime) {
     return {
       time: maghribTime,
       label: t.countdown.iftarIn,
@@ -64,17 +63,16 @@ function determineCountdownTarget(
     };
   }
 
-  // After Maghrib, countdown to next day's Imsak
+  // After Maghrib, countdown to next day's Fajr
   return {
-    time: nextImsakTime,
+    time: nextFajrTime,
     label: t.countdown.sahurEnds,
     type: 'sahur',
-    timeLabel: `${t.countdown.sahurEndsAt} ${times.imsak}`,
+    timeLabel: `${t.countdown.sahurEndsAt} ${times.fajr}`,
   };
 }
 
 function getActivePrayer(times: PrayerTimes, now: Date): string | null {
-  const imsak = parseTimeToDate(times.imsak, now);
   const fajr = parseTimeToDate(times.fajr, now);
   const sunrise = parseTimeToDate(times.sunrise, now);
   const dhuhr = parseTimeToDate(times.dhuhr, now);
@@ -82,13 +80,12 @@ function getActivePrayer(times: PrayerTimes, now: Date): string | null {
   const maghrib = parseTimeToDate(times.maghrib, now);
   const isha = parseTimeToDate(times.isha, now);
 
-  if (now >= imsak && now < fajr) return 'imsak';
   if (now >= fajr && now < sunrise) return 'fajr';
   if (now >= sunrise && now < dhuhr) return 'sunrise';
   if (now >= dhuhr && now < asr) return 'dhuhr';
   if (now >= asr && now < maghrib) return 'asr';
   if (now >= maghrib && now < isha) return 'maghrib';
-  if (now >= isha || now < imsak) return 'isha';
+  if (now >= isha || now < fajr) return 'isha';
   
   return null;
 }
@@ -178,9 +175,9 @@ export default function Home() {
   const prayerTimeItems = useMemo(() => {
     if (!prayerTimes) return [];
     return [
-      // İmsak is the canonical fasting start time (replaces Fajr for fasting purposes)
-      { key: 'imsak', name: language === 'tr' ? 'İmsak' : 'Imsak', time: prayerTimes.imsak, icon: Moon, label: t.prayerLabels.sahurEnds },
-      // Sunrise - purely informational, no fasting references
+      // Fajr (labeled as İmsak) - Fasting starts at Fajr time in Method 13
+      { key: 'fajr', name: language === 'tr' ? 'İmsak' : 'Imsak', time: prayerTimes.fajr, icon: Moon, label: t.prayerLabels.fajrImsak },
+      // Sunrise - purely informational
       { key: 'sunrise', name: t.prayerNames.sunrise, time: prayerTimes.sunrise, icon: Sun, label: t.prayerLabels.sunriseOnly },
       { key: 'dhuhr', name: t.prayerNames.dhuhr, time: prayerTimes.dhuhr, icon: Sun, label: t.prayerLabels.noonPrayer },
       { key: 'asr', name: t.prayerNames.asr, time: prayerTimes.asr, icon: Sun, label: t.prayerLabels.afternoonPrayer },

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export interface PrayerTimes {
-  imsak: string;
   fajr: string;
   sunrise: string;
   dhuhr: string;
@@ -79,7 +78,7 @@ export async function fetchPrayerTimes(
   lng: number
 ): Promise<{ times: PrayerTimes; hijriDate: string; gregorianDate: string; timezone: string }> {
   const response = await axios.get<PrayerTimesResponse>(
-    `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=13&tune=2,2,0,0,0,0,0,0,0`
+    `https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=13`
   );
 
   const { data } = response.data;
@@ -87,7 +86,6 @@ export async function fetchPrayerTimes(
 
   return {
     times: {
-      imsak: timings.Imsak,
       fajr: timings.Fajr,
       sunrise: timings.Sunrise,
       dhuhr: timings.Dhuhr,
